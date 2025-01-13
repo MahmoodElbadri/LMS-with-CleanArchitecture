@@ -17,6 +17,5 @@ public class Book
     public string? Author { get; set; }
     public bool IsBorrowed { get; set; }
     public DateTime PublishDate { get; set; }
-    public int Year { get; set; }
     public virtual ICollection<Loan>? Loans { get; set; } = new List<Loan>();
 }
