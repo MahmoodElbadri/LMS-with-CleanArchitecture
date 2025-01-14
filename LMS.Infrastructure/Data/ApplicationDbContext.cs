@@ -28,11 +28,11 @@ public class ApplicationDbContext : DbContext
 
         modelBuilder.Entity<Book>()
             .Property(tmp => tmp.PublishDate)
-            .HasColumnType("timestamp without time zone");
+            .HasColumnType("datetime2");
 
         modelBuilder.Entity<Loan>()
             .Property(tmp => tmp.ReturnDate)
-            .HasColumnType("timestamp without time zone");
+            .HasColumnType("datetime2");
 
         modelBuilder.Entity<Loan>()
             .HasOne(tmp=>tmp.Book)

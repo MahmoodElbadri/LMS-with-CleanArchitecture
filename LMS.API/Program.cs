@@ -1,4 +1,6 @@
 
+using FluentValidation.AspNetCore;
+using FluentValidation;
 using LMS.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,6 +22,8 @@ namespace LMS.API
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
+            builder.Services.AddFluentValidationAutoValidation();
+            builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
 
             var app = builder.Build();
 
