@@ -18,7 +18,7 @@ namespace LMS.Core.Models
         public DateTime ReturnDate { get; set; }
         public bool IsReturned { get; set; }
         public int BookID { get; set; }
-        public virtual Book? Books { get; set; }
+        public virtual Book? Book { get; set; }
         public int UserID { get; set; }
         public virtual User? User { get; set; }
     }
