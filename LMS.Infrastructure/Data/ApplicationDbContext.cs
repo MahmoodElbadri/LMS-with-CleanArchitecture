@@ -53,5 +53,6 @@ public class ApplicationDbContext : DbContext
             .WithMany(tmp=>tmp.Loans)
             .HasForeignKey(tmp=>tmp.UserID)
             .OnDelete(DeleteBehavior.Restrict);
+
     }
 }

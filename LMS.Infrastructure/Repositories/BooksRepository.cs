@@ -80,7 +80,7 @@ public class BooksRepository : IBookRepository
         {
             //this is will not throw an exception to throw an exception in the controller 
             //return await _db.Books.Where(tmp => tmp.ID == ID).FirstOrDefaultAsync();
-            return await _db.Books.FindAsync(ID);
+            return await _db.Books.FirstOrDefaultAsync(tmp=>tmp.ID == ID);
         }
         catch (Exception ex)
         {
