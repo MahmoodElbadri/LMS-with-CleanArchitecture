@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using LMS.Core.Interfaces.Repositories;
 using LMS.Infrastructure.Repositories;
 using LMS.Core.Interfaces.Services;
+using LMS.Infrastructure.Services;
+using LMS.Infrastructure.Mappings;
 
 namespace LMS.API
 {
@@ -27,14 +29,18 @@ namespace LMS.API
             });
             builder.Services.AddFluentValidationAutoValidation();
             builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+            //builder.Services.AddAutoMapper(typeof(Program).Assembly);
+
+            builder.Services.AddAutoMapper(typeof(MappingProfile));
+
 
             builder.Services.AddScoped<IUserRepository, UsersRepository>();
             builder.Services.AddScoped<ILoanRepository, LoansRepository>();
             builder.Services.AddScoped<IBookRepository, BooksRepository>();
 
-            builder.Services.AddScoped<IUsersService, IUsersService>();
+            builder.Services.AddScoped<IUsersService,UserService>();
             builder.Services.AddScoped<ILoansService, LoansService>();
-            builder.Services.AddScoped<IBooksService, IBooksService>();
+            builder.Services.AddScoped<IBooksService, BookService>();
 
             var app = builder.Build();
 

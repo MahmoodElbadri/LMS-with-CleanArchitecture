@@ -70,7 +70,7 @@ public class BookService : IBooksService
         try
         {
             var books = await _bookRepo.GetAllBooksAsync();
-            var bookResponses = _mapper.Map<IEnumerable<BookResponse>>(books);
+            var bookResponses = _mapper.Map<List<BookResponse>>(books);
             return bookResponses;
         }
         catch (Exception ex)
