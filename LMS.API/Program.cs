@@ -3,6 +3,9 @@ using FluentValidation.AspNetCore;
 using FluentValidation;
 using LMS.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using LMS.Core.Interfaces.Repositories;
+using LMS.Infrastructure.Repositories;
+using LMS.Core.Interfaces.Services;
 
 namespace LMS.API
 {
@@ -24,6 +27,14 @@ namespace LMS.API
             });
             builder.Services.AddFluentValidationAutoValidation();
             builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+
+            builder.Services.AddScoped<IUserRepository, UsersRepository>();
+            builder.Services.AddScoped<ILoanRepository, LoansRepository>();
+            builder.Services.AddScoped<IBookRepository, BooksRepository>();
+
+            builder.Services.AddScoped<IUsersService, IUsersService>();
+            builder.Services.AddScoped<ILoansService, LoansService>();
+            builder.Services.AddScoped<IBooksService, IBooksService>();
 
             var app = builder.Build();
 
