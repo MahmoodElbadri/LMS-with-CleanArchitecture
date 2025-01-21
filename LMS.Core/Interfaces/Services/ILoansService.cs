@@ -11,8 +11,8 @@ namespace LMS.Core.Interfaces.Services;
 public interface ILoansService
 {
     Task<IEnumerable<LoanResponse>> GetAllLoansAsync();
-    Task<LoanResponse> GetLoanByIdAsync(int id);
+    Task<LoanResponse?> GetLoanByIdAsync(int id);
     Task<LoanResponse> AddLoanAsync(LoanAddRequest loanDto);
-    Task UpdateLoanAsync(int id, LoanAddRequest loanDto);
+    Task<LoanResponse> UpdateLoanAsync(int id, LoanAddRequest loanDto);
     Task DeleteLoanAsync(int id);
 }

@@ -126,7 +126,7 @@ public class LoansRepository : ILoanRepository
             .ToListAsync();
     }
 
-    public async Task UpdateLoanAsync(int id, Loan loan)
+    public async Task <Loan> UpdateLoanAsync(int id, Loan loan)
     {
         using var transaction = await _db.Database.BeginTransactionAsync();
 
@@ -155,6 +155,7 @@ public class LoansRepository : ILoanRepository
             await _db.SaveChangesAsync();
 
             await transaction.CommitAsync();
+            return existingLoan;
 
         }
         catch (Exception ex)

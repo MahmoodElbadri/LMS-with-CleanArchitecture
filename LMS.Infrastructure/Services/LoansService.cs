@@ -74,7 +74,7 @@ public class LoansService : ILoansService
         }
     }
 
-    public async Task<LoanResponse> GetLoanByIdAsync(int id)
+    public async Task<LoanResponse?> GetLoanByIdAsync(int id)
     {
         if (id <= 0)
         {
@@ -83,6 +83,10 @@ public class LoansService : ILoansService
         try
         {
             var loan = await _loanRepo.GetLoanByIdAsync(id);
+            if (loan == null)
+            {
+                return null;
+            }
             var loanReponse = _mapper.Map<LoanResponse>(loan);
             return loanReponse;
         }
@@ -93,7 +97,7 @@ public class LoansService : ILoansService
         }
     }
 
-    public async Task UpdateLoanAsync(int id, LoanAddRequest loanDto)
+    public async Task<LoanResponse> UpdateLoanAsync(int id, LoanAddRequest loanDto)
     {
         if (id <= 0)
         {
@@ -104,7 +108,9 @@ public class LoansService : ILoansService
         {
             var loan = _mapper.Map<Loan>(loanDto);
             loan.ID = id;
-            await _loanRepo.UpdateLoanAsync(id, loan);
+            loan = await _loanRepo.UpdateLoanAsync(id, loan);
+            var loanResponse = _mapper.Map<LoanResponse>(loan);
+            return loanResponse;
         }
         catch (Exception ex)
         {
