@@ -45,7 +45,12 @@ public class BookService : IBooksService
             throw;
         }
     }
-
+    /// <summary>
+    ///function to delete book
+    /// </summary>
+    /// <param name="id">id of the book to be deleted</param>
+    /// <returns>the deleted book</returns>
+    /// <exception cref="ArgumentException">if id is less than zero</exception>
     public async Task<BookResponse> DeleteBookAsync(int id)
     {
         if (id < 0)

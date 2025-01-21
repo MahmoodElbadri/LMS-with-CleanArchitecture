@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace LMS.Core.DTOs.RequestDTOs.Validators;
 
-public class BookDtoValidator:AbstractValidator<BookAddRequest>
+public class BookDtoValidator : AbstractValidator<BookAddRequest>
 {
     public BookDtoValidator()
     {
-        RuleFor(tmp=>tmp.Title)
+        RuleFor(tmp => tmp.Title)
             .NotEmpty()
             .WithMessage("Title is required")
             .MaximumLength(50)
@@ -19,7 +19,7 @@ public class BookDtoValidator:AbstractValidator<BookAddRequest>
             .MinimumLength(3)
             .WithMessage("Title must not be less than 3 characters");
 
-        RuleFor(tmp=>tmp.Author)
+        RuleFor(tmp => tmp.Author)
             .NotEmpty()
             .WithMessage("Author is required")
             .MaximumLength(50)
@@ -27,13 +27,14 @@ public class BookDtoValidator:AbstractValidator<BookAddRequest>
             .MinimumLength(3)
             .WithMessage("Author must not be less than 3 characters");
 
-        RuleFor(tmp=>tmp.IsBorrowed)
-            .NotEmpty()
-            .WithMessage("IsBorrowed is required")
-            .Must(tmp => tmp == false)
-            .WithMessage("Book is already borrowed");
+        RuleFor(tmp => tmp.IsBorrowed)
+        .Equal(false)
+        .WithMessage("Book must not be borrowed when added");
 
-        RuleFor(tmp=>tmp.PublishDate)
+        //.Must(tmp => tmp == false)
+        //.WithMessage("Book is already borrowed");
+
+        RuleFor(tmp => tmp.PublishDate)
             .NotEmpty()
             .WithMessage("PublishDate is required")
             .LessThan(DateTime.Now)
