@@ -45,7 +45,12 @@ public class BookService : IBooksService
             throw;
         }
     }
-
+    /// <summary>
+    ///function to delete book
+    /// </summary>
+    /// <param name="id">id of the book to be deleted</param>
+    /// <returns>the deleted book</returns>
+    /// <exception cref="ArgumentException">if id is less than zero</exception>
     public async Task<BookResponse> DeleteBookAsync(int id)
     {
         if (id < 0)
@@ -70,7 +75,7 @@ public class BookService : IBooksService
         try
         {
             var books = await _bookRepo.GetAllBooksAsync();
-            var bookResponses = _mapper.Map<IEnumerable<BookResponse>>(books);
+            var bookResponses = _mapper.Map<List<BookResponse>>(books);
             return bookResponses;
         }
         catch (Exception ex)

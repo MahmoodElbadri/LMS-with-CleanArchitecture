@@ -26,5 +26,8 @@ public class MappingProfile:Profile
             .ReverseMap();
         CreateMap<BookResponse, Book>()
             .ReverseMap();
+
+        //CreateMap<List<Book>, List<BookResponse>>().ReverseMap();
+
     }
 }

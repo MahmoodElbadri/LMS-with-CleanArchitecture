@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+
 
 namespace LMS.Infrastructure.Services;
 
@@ -20,11 +20,12 @@ public class UserService : IUsersService
     private readonly IUserRepository _userRepo;
 
     public UserService(ILogger<IUsersService> logger, IMapper mapper, IUserRepository userRepo)
-    {
-        this._logger = logger;
-        this._mapper = mapper;
-        this._userRepo = userRepo;
-    }
+    private readonly ILogger<UserService> _logger; // Fixed: Changed to UserService
+    private readonly IMapper _mapper;
+    private readonly IUserRepository _userRepo;
+
+    
+
     public async Task<UserResponse> AddUserAsync(UserAddRequest userDto)
     {
         if (userDto == null) throw new ArgumentNullException(nameof(userDto), "User cannot be null");
@@ -89,7 +90,8 @@ public class UserService : IUsersService
         }
     }
 
-    public Task UpdateUserAsync(int id, UserAddRequest userDto)
+
+    public async Task UpdateUserAsync(int id, UserAddRequest userDto)
     {
         if (id <= 0)
         {
@@ -100,6 +102,11 @@ public class UserService : IUsersService
         {
             var user = _mapper.Map<User>(userDto);
             return _userRepo.UpdateUserAsync(id, user);
+        if (userDto == null) throw new ArgumentNullException(nameof(userDto), "User cannot be null");
+        try
+        {
+            var user = _mapper.Map<User>(userDto);
+            await _userRepo.UpdateUserAsync(id, user);
         }
         catch (Exception ex)
         {
@@ -107,4 +114,6 @@ public class UserService : IUsersService
             throw;
         }
     }
+
 }
+

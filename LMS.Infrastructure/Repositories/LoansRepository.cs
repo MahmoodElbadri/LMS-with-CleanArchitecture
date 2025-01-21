@@ -78,7 +78,8 @@ public class LoansRepository : ILoanRepository
 
     public async Task<Loan> GetLoanByIdAsync(int id)
     {
-        if(id <= 0) {
+        if (id <= 0)
+        {
             throw new ArgumentException($"Loan with ID {id} not found");
         }
 
@@ -90,7 +91,8 @@ public class LoansRepository : ILoanRepository
 
     public async Task<IEnumerable<Loan>> GetLoansByBookIdAsync(int bookId)
     {
-        if(bookId <= 0) {
+        if (bookId <= 0)
+        {
             throw new ArgumentException($"Book with ID {bookId} not found");
         }
 
@@ -124,13 +126,13 @@ public class LoansRepository : ILoanRepository
             .ToListAsync();
     }
 
-    public async Task UpdateLoanAsync(int id, Loan loan)
+    public async Task <Loan> UpdateLoanAsync(int id, Loan loan)
     {
         using var transaction = await _db.Database.BeginTransactionAsync();
 
         try
         {
-            var existingLoan = await _db.Loans.FirstOrDefaultAsync(tmp=>tmp.ID == id);
+            var existingLoan = await _db.Loans.FirstOrDefaultAsync(tmp => tmp.ID == id);
             if (existingLoan == null)
             {
                 throw new KeyNotFoundException($"Loan with ID {id} does not exist.");
@@ -153,6 +155,7 @@ public class LoansRepository : ILoanRepository
             await _db.SaveChangesAsync();
 
             await transaction.CommitAsync();
+            return existingLoan;
 
         }
         catch (Exception ex)
